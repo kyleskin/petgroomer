@@ -22,19 +22,11 @@ namespace Service
 
 		public IEnumerable<OwnerDto> GetAllOwners(bool trackChanges)
         {
-			try
-            {
-				var owners = _repository.Owner.GetAllOwners(trackChanges);
+			var owners = _repository.Owner.GetAllOwners(trackChanges);
 
-				var ownersDto = _mapper.Map<IEnumerable<OwnerDto>>(owners);
+			var ownersDto = _mapper.Map<IEnumerable<OwnerDto>>(owners);
 
-				return ownersDto;
-            }
-			catch (Exception ex)
-            {
-				_logger.LogError($"Something went wrong in the {nameof(GetAllOwners)} service method {ex}");
-				throw;
-            }
+			return ownersDto;
         }
 	}
 }

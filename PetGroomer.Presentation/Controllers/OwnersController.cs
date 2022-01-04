@@ -15,17 +15,10 @@ namespace PetGroomer.Presentation.Controllers
 		[HttpGet]
 		public IActionResult GetOwners()
         {
-			try
-            {
-				var owners = _service.OwnerService.GetAllOwners(trackChanges: false);
+			var owners = _service.OwnerService.GetAllOwners(trackChanges: false);
 
-				return Ok(owners);
-            }
-			catch
-            {
-				return StatusCode(500, "Internal server error");
-            }
-        }
+			return Ok(owners);
+		}
 	}
 }
 
