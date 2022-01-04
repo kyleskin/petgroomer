@@ -1,6 +1,8 @@
 ﻿using System;
 using Contracts;
 using LoggerService;
+using Microsoft.EntityFrameworkCore;
+using Repository;
 
 namespace PetGroomer.Extensions
 {
@@ -22,6 +24,10 @@ namespace PetGroomer.Extensions
 
 		public static void ConfigureLoggerService(this IServiceCollection services) =>
 			services.AddSingleton<ILoggerManager, LoggerManager>();
+
+		public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
+			services.AddDbContext<RepositoryContext>(opts =>
+				opts.UseMySql(configuration.GetConnectionString("sqlConnection"), new MySqlServerVersion(new Version(8, 0, 27))));
 	}
 }
 

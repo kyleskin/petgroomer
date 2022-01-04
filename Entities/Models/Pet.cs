@@ -19,6 +19,9 @@ namespace Entities.Models
 		[ForeignKey(nameof(PetType))]
 		public Guid PetTypeId { get; set; }
 		public PetType? PetType { get; set; }
+
+		[ForeignKey(nameof(Owner))]
+		public Guid OwnerId { get; set; }
 	}
 }
 
