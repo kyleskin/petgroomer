@@ -1,6 +1,7 @@
 ﻿using System;
 using Contracts;
 using Service.Contracts;
+using Entities.Models;
 
 namespace Service
 {
@@ -14,6 +15,21 @@ namespace Service
 			_repository = repository;
 			_logger = logger;
 		}
+
+		public IEnumerable<Owner> GetAllOwners(bool trackChanges)
+        {
+			try
+            {
+				var owners = _repository.Owner.GetAllOwners(trackChanges);
+
+				return owners;
+            }
+			catch (Exception ex)
+            {
+				_logger.LogError($"Something went wrong in the {nameof(GetAllOwners)} service method {ex}");
+				throw;
+            }
+        }
 	}
 }
 
