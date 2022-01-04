@@ -15,6 +15,10 @@ namespace Repository
 			FindAll(trackChanges)
 				.OrderBy(o => o.LastName)
 				.ToList();
+
+		public Owner GetOwner(Guid ownerId, bool trackChanges) =>
+			FindByCondition(o => o.Id.Equals(ownerId), trackChanges)
+			.SingleOrDefault();
     }
 }
 

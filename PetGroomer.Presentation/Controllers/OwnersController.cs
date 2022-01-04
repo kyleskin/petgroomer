@@ -19,6 +19,13 @@ namespace PetGroomer.Presentation.Controllers
 
 			return Ok(owners);
 		}
+
+		[HttpGet("{id:guid}")]
+		public IActionResult GetOwner(Guid id)
+        {
+			var owner = _service.OwnerService.GetOwner(id, trackChanges: false);
+			return Ok(owner);
+        }
 	}
 }
 
