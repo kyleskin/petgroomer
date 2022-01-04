@@ -28,6 +28,9 @@ namespace PetGroomer.Extensions
 		public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
 			services.AddDbContext<RepositoryContext>(opts =>
 				opts.UseMySql(configuration.GetConnectionString("sqlConnection"), new MySqlServerVersion(new Version(8, 0, 27))));
+
+		public static void ConfigureRepositoryManager(this IServiceCollection services) =>
+			services.AddScoped<IRepositoryManager, RepositoryManager>();
 	}
 }
 
