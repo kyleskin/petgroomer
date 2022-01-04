@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using Contracts;
 using Service.Contracts;
 
@@ -11,12 +12,12 @@ namespace Service
         private readonly Lazy<IPetTypeService> _petTypeService;
         private readonly Lazy<IAppointmentService> _appointmentService;
 
-		public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger)
+		public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper mapper)
 		{
-            _ownerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager, logger));
-            _petService = new Lazy<IPetService>(() => new PetService(repositoryManager, logger));
-            _petTypeService = new Lazy<IPetTypeService>(() => new PetTypeService(repositoryManager, logger));
-            _appointmentService = new Lazy<IAppointmentService>(() => new AppointmentService(repositoryManager, logger));
+            _ownerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager, logger, mapper));
+            _petService = new Lazy<IPetService>(() => new PetService(repositoryManager, logger, mapper));
+            _petTypeService = new Lazy<IPetTypeService>(() => new PetTypeService(repositoryManager, logger, mapper));
+            _appointmentService = new Lazy<IAppointmentService>(() => new AppointmentService(repositoryManager, logger, mapper));
 		}
 
         public IOwnerService OwnerService => _ownerService.Value;

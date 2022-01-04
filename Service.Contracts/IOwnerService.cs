@@ -1,11 +1,11 @@
 ﻿using System;
-using Entities.Models;
+using Shared.DataTransferObjects;
 
 namespace Service.Contracts
 {
 	public interface IOwnerService
 	{
-		IEnumerable<Owner> GetAllOwners(bool trackChanges);
+		IEnumerable<OwnerDto> GetAllOwners(bool trackChanges);
 	}
 }
 

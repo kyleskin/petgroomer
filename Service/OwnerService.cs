@@ -2,6 +2,8 @@
 using Contracts;
 using Service.Contracts;
 using Entities.Models;
+using Shared.DataTransferObjects;
+using AutoMapper;
 
 namespace Service
 {
@@ -9,20 +11,24 @@ namespace Service
 	{
 		private readonly IRepositoryManager _repository;
 		private readonly ILoggerManager _logger;
+		private readonly IMapper _mapper;
 
-		public OwnerService(IRepositoryManager repository, ILoggerManager logger)
+		public OwnerService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
 		{
 			_repository = repository;
 			_logger = logger;
+			_mapper = mapper;
 		}
 
-		public IEnumerable<Owner> GetAllOwners(bool trackChanges)
+		public IEnumerable<OwnerDto> GetAllOwners(bool trackChanges)
         {
 			try
             {
 				var owners = _repository.Owner.GetAllOwners(trackChanges);
 
-				return owners;
+				var ownersDto = _mapper.Map<IEnumerable<OwnerDto>>(owners);
+
+				return ownersDto;
             }
 			catch (Exception ex)
             {
