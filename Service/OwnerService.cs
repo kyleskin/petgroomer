@@ -1,0 +1,19 @@
+﻿using System;
+using Contracts;
+using Service.Contracts;
+
+namespace Service
+{
+	internal sealed class OwnerService : IOwnerService
+	{
+		private readonly IRepositoryManager _repository;
+		private readonly ILoggerManager _logger;
+
+		public OwnerService(IRepositoryManager repository, ILoggerManager logger)
+		{
+			_repository = repository;
+			_logger = logger;
+		}
+	}
+}
+
