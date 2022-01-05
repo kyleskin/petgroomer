@@ -16,9 +16,8 @@ namespace Entities.Models
 
 		ICollection<Appointment>? Appointments { get; set; }
 
-		[ForeignKey(nameof(PetType))]
-		public Guid PetTypeId { get; set; }
-		public PetType? PetType { get; set; }
+		[Required(ErrorMessage = "Pet type is required.")]
+		public PetTypes Type { get; set; }
 
 		[ForeignKey(nameof(Owner))]
 		public Guid OwnerId { get; set; }

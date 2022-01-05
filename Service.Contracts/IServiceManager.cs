@@ -5,7 +5,6 @@ namespace Service.Contracts
 	{
 		IOwnerService OwnerService { get; }
 		IPetService PetService { get; }
-		IPetTypeService PetTypeService { get; }
 		IAppointmentService AppointmentService { get; }
 	}
 }
