@@ -49,6 +49,16 @@ namespace Service
 
 			return ownerToReturn;
         }
+
+		public void DeleteOwner(Guid ownerId, bool trackChanges)
+		{
+			var owner = _repository.Owner.GetOwner(ownerId, trackChanges: false);
+			if (owner is null)
+				throw new OwnerNotFoundException(ownerId);
+
+			_repository.Owner.DeleteOwner(owner);
+			_repository.Save();
+		}
 	}
 }
 

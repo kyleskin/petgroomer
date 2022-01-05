@@ -21,6 +21,8 @@ namespace Repository
 			.SingleOrDefault();
 
 		public void CreateOwner(Owner owner) => Create(owner);
+
+		public void DeleteOwner(Owner owner) => Delete(owner);
     }
 }
 

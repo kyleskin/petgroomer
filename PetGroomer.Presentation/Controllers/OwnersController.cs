@@ -38,6 +38,14 @@ namespace PetGroomer.Presentation.Controllers
 
 			return CreatedAtRoute("OwnerById", new { id = createdOwner.Id }, createdOwner);
         }
+
+		[HttpDelete("{id:guid}")]
+		public IActionResult DeleteOwner(Guid id)
+		{
+			_service.OwnerService.DeleteOwner(id, trackChanges: false);
+
+			return NoContent();
+		}
 	}
 }
 
