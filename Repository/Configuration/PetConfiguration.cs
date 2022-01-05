@@ -35,6 +35,13 @@ namespace Repository.Configuration
                     Notes = "ugliest dog",
                     Type = PetTypes.Dog,
                     OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88")
+                },
+                new Pet
+                {
+                    Id = new Guid("ce005075-ff5c-4f25-9f63-2ac00673abe6"),
+                    Name = "Mittens",
+                    Type = PetTypes.Cat,
+                    OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88")
                 }
             );
         }

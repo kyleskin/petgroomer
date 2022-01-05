@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -10,9 +11,10 @@ using Repository;
 namespace PetGroomer.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20220105041224_PetTypesEnum")]
+    partial class PetTypesEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +48,7 @@ namespace PetGroomer.Migrations
                         new
                         {
                             Id = new Guid("f184f942-063e-48a7-aa63-d926cbf3500f"),
-                            DateTime = new DateTime(2022, 1, 4, 21, 24, 24, 962, DateTimeKind.Local).AddTicks(2430),
+                            DateTime = new DateTime(2022, 1, 4, 21, 12, 23, 858, DateTimeKind.Local).AddTicks(3540),
                             Details = "short cut and shampoo",
                             Duration = 30,
                             PetId = new Guid("db5ca57b-3979-40f2-9999-6afae0304bec")
@@ -54,7 +56,7 @@ namespace PetGroomer.Migrations
                         new
                         {
                             Id = new Guid("70c451a9-d7e0-4aa5-bf19-40ea1d86250c"),
-                            DateTime = new DateTime(2022, 1, 4, 21, 24, 24, 962, DateTimeKind.Local).AddTicks(2490),
+                            DateTime = new DateTime(2022, 1, 4, 21, 12, 23, 858, DateTimeKind.Local).AddTicks(3570),
                             Details = "matted and lice",
                             Duration = 45,
                             PetId = new Guid("43acbff7-92d5-47e7-94db-89195c296e3f")
@@ -158,13 +160,6 @@ namespace PetGroomer.Migrations
                             Notes = "ugliest dog",
                             OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88"),
                             Type = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("ce005075-ff5c-4f25-9f63-2ac00673abe6"),
-                            Name = "Mittens",
-                            OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88"),
-                            Type = 1
                         });
                 });
 

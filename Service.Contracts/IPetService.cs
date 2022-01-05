@@ -7,6 +7,7 @@ namespace Service.Contracts
 	{
 		IEnumerable<PetDto> GetPets(Guid ownerId, bool trackChanges);
 		PetDto GetPet(Guid ownerId, Guid petId, bool trackChanges);
+		PetDto CreatePetForOwner(Guid ownerId, PetForCreationDto petForCreationDto, bool trackChanges);
 	}
 }
 

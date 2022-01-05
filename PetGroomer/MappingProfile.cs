@@ -2,6 +2,7 @@
 using AutoMapper;
 using Entities.Models;
 using Shared.DataTransferObjects;
+using AutoMapper.Extensions.EnumMapping;
 
 namespace PetGroomer
 {
@@ -14,6 +15,8 @@ namespace PetGroomer
 			CreateMap<Pet, PetDto>();
 
 			CreateMap<OwnerForCreationDto, Owner>();
+
+			CreateMap<PetForCreationDto, Pet>();
 		}
 	}
 }

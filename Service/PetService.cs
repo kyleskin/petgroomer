@@ -2,6 +2,7 @@
 using AutoMapper;
 using Contracts;
 using Entities.Exceptions;
+using Entities.Models;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 
@@ -44,6 +45,22 @@ namespace Service
 
 			var petDto = _mapper.Map<PetDto>(petDb);
 			return petDto;
+        }
+
+		public PetDto CreatePetForOwner(Guid ownerId, PetForCreationDto petForCreation, bool trackChanges)
+        {
+			var owner = _repository.Owner.GetOwner(ownerId, trackChanges);
+			if (owner is null)
+				throw new OwnerNotFoundException(ownerId);
+
+			var petEntity = _mapper.Map<Pet>(petForCreation);
+
+			_repository.Pet.CreatePetForOwner(ownerId, petEntity);
+			_repository.Save();
+
+			var petToReturn = _mapper.Map<PetDto>(petEntity);
+
+			return petToReturn;
         }
 	}
 }

@@ -3,6 +3,7 @@ using PetGroomer.Extensions;
 using NLog;
 using Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,13 @@ builder.Services.AddControllers(config =>
 {
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;
-}).AddXmlDataContractSerializerFormatters()
+})
+    .AddJsonOptions(x =>
+    {
+        x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        x.JsonSerializerOptions.IgnoreNullValues = true;
+    })
+    .AddXmlDataContractSerializerFormatters()
     .AddApplicationPart(typeof(PetGroomer.Presentation.AssemblyReference).Assembly);
 
 var app = builder.Build();

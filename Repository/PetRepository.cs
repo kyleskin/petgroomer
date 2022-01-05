@@ -18,6 +18,13 @@ namespace Repository
 		public Pet GetPet(Guid ownerId, Guid petId, bool trackChanges) =>
 			FindByCondition(p => p.OwnerId.Equals(ownerId) && p.Id.Equals(petId), trackChanges)
 			.SingleOrDefault();
+
+		public void CreatePetForOwner(Guid ownerId, Pet pet)
+        {
+			pet.OwnerId = ownerId;
+			Create(pet);
+		}
+
 	}
 }
 

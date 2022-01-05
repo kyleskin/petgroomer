@@ -20,11 +20,22 @@ namespace PetGroomer.Presentation.Controllers
 			return Ok(pets);
         }
 
-		[HttpGet("{id:guid}")]
+		[HttpGet("{id:guid}", Name = "GetPetForOwner")]
 		public IActionResult GetPetForOwner(Guid ownerId, Guid id)
         {
 			var pet = _service.PetService.GetPet(ownerId, id, trackChanges: false);
 			return Ok(pet);
+        }
+
+		[HttpPost]
+		public IActionResult CreatePetForOwner(Guid ownerId, [FromBody] PetForCreationDto pet)
+        {
+			if (pet is null)
+				return BadRequest("PetForCreationDto object is null.");
+
+			var petToReturn = _service.PetService.CreatePetForOwner(ownerId, pet, trackChanges: false);
+
+			return CreatedAtRoute("GetPetForOwner", new { ownerId, id = petToReturn.Id }, petToReturn);
         }
 	}
 }
