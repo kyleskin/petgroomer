@@ -37,5 +37,13 @@ namespace PetGroomer.Presentation.Controllers
 
 			return CreatedAtRoute("GetPetForOwner", new { ownerId, id = petToReturn.Id }, petToReturn);
         }
+
+		[HttpDelete("{id:guid}")]
+		public IActionResult DeletePetForOwner(Guid ownerId, Guid id)
+		{
+			_service.PetService.DeletePetForOwner(ownerId, id, trackChanges: false);
+
+			return NoContent();
+		}
 	}
 }

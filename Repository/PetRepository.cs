@@ -25,6 +25,7 @@ namespace Repository
 			Create(pet);
 		}
 
-	}
+        public void DeletePet(Pet pet) => Delete(pet);
+    }
 }
 

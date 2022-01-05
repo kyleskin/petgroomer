@@ -62,6 +62,20 @@ namespace Service
 
 			return petToReturn;
         }
+
+		public void DeletePetForOwner(Guid ownerId, Guid id, bool trackChanges)
+		{
+			var owner = _repository.Owner.GetOwner(ownerId, trackChanges);
+			if (owner is null)
+				throw new OwnerNotFoundException(ownerId);
+
+			var petForOwner = _repository.Pet.GetPet(ownerId, id, trackChanges);
+			if (petForOwner is null)
+				throw new PetNotFoundException(id);
+
+			_repository.Pet.DeletePet(petForOwner);
+			_repository.Save();
+		}
 	}
 }
 
