@@ -7,6 +7,7 @@ namespace Service.Contracts
 	{
 		IEnumerable<OwnerDto> GetAllOwners(bool trackChanges);
 		OwnerDto GetOwner(Guid ownerId, bool trackChanges);
+		OwnerDto CreateOwner(OwnerForCreationDto owner);
 	}
 }
 

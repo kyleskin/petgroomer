@@ -12,6 +12,8 @@ namespace PetGroomer
 			CreateMap<Owner, OwnerDto>();
 
 			CreateMap<Pet, PetDto>();
+
+			CreateMap<OwnerForCreationDto, Owner>();
 		}
 	}
 }

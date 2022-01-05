@@ -37,6 +37,18 @@ namespace Service
 			var ownerDto = _mapper.Map<OwnerDto>(owner);
 			return ownerDto;
         }
+
+		public OwnerDto CreateOwner(OwnerForCreationDto owner)
+        {
+			var ownerEntity = _mapper.Map<Owner>(owner);
+
+			_repository.Owner.CreateOwner(ownerEntity);
+			_repository.Save();
+
+			var ownerToReturn = _mapper.Map<OwnerDto>(ownerEntity);
+
+			return ownerToReturn;
+        }
 	}
 }
 

@@ -7,6 +7,7 @@ namespace Contracts
 	{
 		IEnumerable<Owner> GetAllOwners(bool trackChanges);
 		Owner GetOwner(Guid ownerId, bool trackChanges);
+		void CreateOwner(Owner owner);
 	}
 }
 
