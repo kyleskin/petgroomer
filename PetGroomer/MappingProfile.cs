@@ -10,6 +10,8 @@ namespace PetGroomer
 		public MappingProfile()
 		{
 			CreateMap<Owner, OwnerDto>();
+
+			CreateMap<Pet, PetDto>();
 		}
 	}
 }
