@@ -4,6 +4,8 @@ using NLog;
 using Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,7 @@ builder.Services.AddControllers(config =>
 {
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;
+    config.InputFormatters.Insert(0, GetJsonInputFormatter());
 })
     .AddJsonOptions(x =>
     {
@@ -35,7 +38,7 @@ builder.Services.AddControllers(config =>
     })
     .AddXmlDataContractSerializerFormatters()
     .AddApplicationPart(typeof(PetGroomer.Presentation.AssemblyReference).Assembly);
-
+    
 var app = builder.Build();
 
 var logger = app.Services.GetRequiredService<ILoggerManager>();
@@ -60,3 +63,8 @@ app.MapControllers();
 
 app.Run();
 
+NewtonsoftJsonInputFormatter GetJsonInputFormatter() => 
+    new ServiceCollection().AddLogging().AddMvc().AddNewtonsoftJson()
+    .Services.BuildServiceProvider()
+    .GetRequiredService<IOptions<MvcOptions>>().Value.InputFormatters
+    .OfType<NewtonsoftJsonInputFormatter>().First();

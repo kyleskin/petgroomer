@@ -90,6 +90,27 @@ namespace Service
 			_mapper.Map(petForUpdate, pet);
 			_repository.Save();
         }
+
+        public (PetForUpdateDto petToPatch, Pet petEntity) GetPetForPatch(Guid ownerId, Guid id, bool ownerTrackChanges, bool petTrackChanges)
+        {
+            var owner = _repository.Owner.GetOwner(ownerId, ownerTrackChanges);
+			if (owner is null)
+				throw new OwnerNotFoundException(ownerId);
+
+			var petEntity = _repository.Pet.GetPet(ownerId, id, petTrackChanges);
+			if (petEntity is null)
+				throw new PetNotFoundException(id);
+
+			var petToPatch = _mapper.Map<PetForUpdateDto>(petEntity);
+
+			return (petToPatch, petEntity);
+        }
+
+        public void SaveChangesForPatch(PetForUpdateDto petToPatch, Pet petEntity)
+        {
+            _mapper.Map(petToPatch, petEntity);
+			_repository.Save();
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -53,6 +54,21 @@ namespace PetGroomer.Presentation.Controllers
 				return BadRequest("PetForUpdate object is null.");
 			
 			_service.PetService.UpdatePetForOwner(ownerId, id, pet, ownerTrackChanges: false, petTrackChanges: true);
+
+			return NoContent();
+		}
+
+		[HttpPatch("{id:guid}")]
+		public IActionResult PartiallyUpdatePetForOwner(Guid ownerId, Guid id, [FromBody] JsonPatchDocument<PetForUpdateDto> patchDoc)
+		{
+			if (patchDoc is null)
+				return BadRequest("patchDoc object sent from client is null.");
+
+			var result = _service.PetService.GetPetForPatch(ownerId, id, ownerTrackChanges: false, petTrackChanges: true);
+
+			patchDoc.ApplyTo(result.petToPatch);
+
+			_service.PetService.SaveChangesForPatch(result.petToPatch, result.petEntity);
 
 			return NoContent();
 		}
