@@ -46,6 +46,17 @@ namespace PetGroomer.Presentation.Controllers
 
 			return NoContent();
 		}
+
+		[HttpPut("{id:guid}")]
+		public IActionResult UpdateOwner(Guid id, [FromBody] OwnerForUpdateDto owner)
+		{
+			if (owner is null)
+				return BadRequest("OwnerForUpdate object is null.");
+
+			_service.OwnerService.UpdateOwner(id, owner, trackChanges: true);
+
+			return NoContent();
+		}
 	}
 }
 

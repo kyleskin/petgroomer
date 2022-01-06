@@ -52,13 +52,23 @@ namespace Service
 
 		public void DeleteOwner(Guid ownerId, bool trackChanges)
 		{
-			var owner = _repository.Owner.GetOwner(ownerId, trackChanges: false);
+			var owner = _repository.Owner.GetOwner(ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
 			_repository.Owner.DeleteOwner(owner);
 			_repository.Save();
 		}
-	}
+
+        public void UpdateOwner(Guid ownerId, OwnerForUpdateDto ownerForUpdate, bool trackChanges)
+        {
+            var owner = _repository.Owner.GetOwner(ownerId, trackChanges);
+			if (owner is null)
+				throw new OwnerNotFoundException(ownerId);
+
+			_mapper.Map(ownerForUpdate, owner);
+			_repository.Save();
+        }
+    }
 }
 

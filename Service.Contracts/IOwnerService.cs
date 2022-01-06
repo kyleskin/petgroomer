@@ -9,6 +9,7 @@ namespace Service.Contracts
 		OwnerDto GetOwner(Guid ownerId, bool trackChanges);
 		OwnerDto CreateOwner(OwnerForCreationDto owner);
 		void DeleteOwner(Guid ownerId, bool trackChanges);
+		void UpdateOwner(Guid ownerId, OwnerForUpdateDto ownerForUpdate, bool trackChanges);
 	}
 }
 
