@@ -9,6 +9,7 @@ namespace Service.Contracts
 		PetDto GetPet(Guid ownerId, Guid petId, bool trackChanges);
 		PetDto CreatePetForOwner(Guid ownerId, PetForCreationDto petForCreationDto, bool trackChanges);
 		void DeletePetForOwner(Guid ownerId, Guid id, bool trackChanges);
+		void UpdatePetForOwner(Guid ownerId, Guid id, PetForUpdateDto petForUpdate, bool ownerTrackChanges, bool petTrackChanges);
 	}
 }
 

@@ -17,6 +17,8 @@ namespace PetGroomer
 			CreateMap<OwnerForCreationDto, Owner>();
 
 			CreateMap<PetForCreationDto, Pet>();
+
+			CreateMap<PetForUpdateDto, Pet>();
 		}
 	}
 }

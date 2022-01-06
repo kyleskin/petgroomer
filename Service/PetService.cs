@@ -76,6 +76,20 @@ namespace Service
 			_repository.Pet.DeletePet(petForOwner);
 			_repository.Save();
 		}
-	}
+
+        public void UpdatePetForOwner(Guid ownerId, Guid id, PetForUpdateDto petForUpdate, bool ownerTrackChanges, bool petTrackChanges)
+        {
+            var owner = _repository.Owner.GetOwner(ownerId, trackChanges: ownerTrackChanges);
+			if (owner is null)
+				throw new OwnerNotFoundException(ownerId);
+
+			var pet = _repository.Pet.GetPet(ownerId, id, trackChanges: petTrackChanges);
+			if (pet is null)
+				throw new PetNotFoundException(id);
+
+			_mapper.Map(petForUpdate, pet);
+			_repository.Save();
+        }
+    }
 }
 
