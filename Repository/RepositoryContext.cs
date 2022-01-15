@@ -14,6 +14,8 @@ namespace Repository
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+			modelBuilder.ApplyConfiguration(new SalonConfiguration());
+			modelBuilder.ApplyConfiguration(new GroomerConfiguration());
 			modelBuilder.ApplyConfiguration(new OwnerConfiguration());
 			modelBuilder.ApplyConfiguration(new PetConfiguration());
 			modelBuilder.ApplyConfiguration(new AppointmentConfiguration());
@@ -22,6 +24,8 @@ namespace Repository
 		public DbSet<Owner>? Owners { get; set; }
 		public DbSet<Pet>? Pets { get; set; }
 		public DbSet<Appointment>? Appointments { get; set; }
+		public DbSet<Salon>? Salons { get; set; }
+		public DbSet<Groomer>? Groomers { get; set; }
 	}
 }
 

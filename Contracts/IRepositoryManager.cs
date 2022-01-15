@@ -6,6 +6,8 @@ namespace Contracts
 		IOwnerRepository Owner { get; }
 		IPetRepository Pet { get; }
 		IAppointmentRepository Appointment { get; }
+		ISalonRepository Salon { get; }
+		IGroomerRepository Groomer { get; }
 
 		void Save();
 	}

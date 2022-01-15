@@ -11,8 +11,8 @@ using Repository;
 namespace PetGroomer.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20220105041224_PetTypesEnum")]
-    partial class PetTypesEnum
+    [Migration("20220115185555_RebuildFromScratch")]
+    partial class RebuildFromScratch
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,10 +37,15 @@ namespace PetGroomer.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("GroomerId")
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid>("PetId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroomerId");
 
                     b.ToTable("Appointments");
 
@@ -48,18 +53,68 @@ namespace PetGroomer.Migrations
                         new
                         {
                             Id = new Guid("f184f942-063e-48a7-aa63-d926cbf3500f"),
-                            DateTime = new DateTime(2022, 1, 4, 21, 12, 23, 858, DateTimeKind.Local).AddTicks(3540),
+                            DateTime = new DateTime(2022, 1, 15, 11, 55, 55, 257, DateTimeKind.Local).AddTicks(9670),
                             Details = "short cut and shampoo",
                             Duration = 30,
+                            GroomerId = new Guid("fd3efa8f-c484-46c8-97e7-de38df002432"),
                             PetId = new Guid("db5ca57b-3979-40f2-9999-6afae0304bec")
                         },
                         new
                         {
                             Id = new Guid("70c451a9-d7e0-4aa5-bf19-40ea1d86250c"),
-                            DateTime = new DateTime(2022, 1, 4, 21, 12, 23, 858, DateTimeKind.Local).AddTicks(3570),
+                            DateTime = new DateTime(2022, 1, 15, 11, 55, 55, 257, DateTimeKind.Local).AddTicks(9700),
                             Details = "matted and lice",
                             Duration = 45,
+                            GroomerId = new Guid("ecb770fa-b1f3-4a1d-afec-f9d20893fe07"),
                             PetId = new Guid("43acbff7-92d5-47e7-94db-89195c296e3f")
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Models.Groomer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasColumnName("GroomerId");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("SalonId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SalonId");
+
+                    b.ToTable("Groomers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fd3efa8f-c484-46c8-97e7-de38df002432"),
+                            FirstName = "John",
+                            LastName = "Smith",
+                            SalonId = new Guid("ef85d02e-b920-4f74-9df0-9072e552a7a2")
+                        },
+                        new
+                        {
+                            Id = new Guid("aedbe5cc-bd60-4f5b-9a66-69a146e78698"),
+                            FirstName = "Amy",
+                            LastName = "Johnson",
+                            SalonId = new Guid("ef85d02e-b920-4f74-9df0-9072e552a7a2")
+                        },
+                        new
+                        {
+                            Id = new Guid("ecb770fa-b1f3-4a1d-afec-f9d20893fe07"),
+                            FirstName = "Jane",
+                            LastName = "Doe",
+                            SalonId = new Guid("06dae702-94eb-4c03-978c-deccdf1b8031")
                         });
                 });
 
@@ -160,7 +215,60 @@ namespace PetGroomer.Migrations
                             Notes = "ugliest dog",
                             OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88"),
                             Type = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("ce005075-ff5c-4f25-9f63-2ac00673abe6"),
+                            Name = "Mittens",
+                            OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88"),
+                            Type = 1
                         });
+                });
+
+            modelBuilder.Entity("Entities.Models.Salon", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasColumnName("SalonId");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Salons");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ef85d02e-b920-4f74-9df0-9072e552a7a2"),
+                            Name = "Best Pet Groomer"
+                        },
+                        new
+                        {
+                            Id = new Guid("06dae702-94eb-4c03-978c-deccdf1b8031"),
+                            Name = "Snips & Snails & Puppy Dog Tails"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Models.Appointment", b =>
+                {
+                    b.HasOne("Entities.Models.Groomer", null)
+                        .WithMany("Appointments")
+                        .HasForeignKey("GroomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Models.Groomer", b =>
+                {
+                    b.HasOne("Entities.Models.Salon", null)
+                        .WithMany("Groomers")
+                        .HasForeignKey("SalonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Models.Pet", b =>
@@ -172,9 +280,19 @@ namespace PetGroomer.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Entities.Models.Groomer", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
             modelBuilder.Entity("Entities.Models.Owner", b =>
                 {
                     b.Navigation("Pets");
+                });
+
+            modelBuilder.Entity("Entities.Models.Salon", b =>
+                {
+                    b.Navigation("Groomers");
                 });
 #pragma warning restore 612, 618
         }
