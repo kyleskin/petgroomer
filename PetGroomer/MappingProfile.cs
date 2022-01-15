@@ -23,6 +23,9 @@ namespace PetGroomer
 			CreateMap<OwnerForUpdateDto, Owner>();
 
 			CreateMap<Salon, SalonDto>();
+
+			CreateMap<Groomer, GroomerDto>();
+			CreateMap<GroomerForCreationDto, Groomer>();
 		}
 	}
 }
