@@ -21,9 +21,9 @@ namespace Service
 			_mapper = mapper;
 		}
 
-		public IEnumerable<PetDto> GetPets(Guid ownerId, bool trackChanges)
+		public IEnumerable<PetDto> GetPets(Guid salonId, Guid ownerId, bool trackChanges)
         {
-			var owner = _repository.Owner.GetOwner(ownerId, trackChanges);
+			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
@@ -33,9 +33,9 @@ namespace Service
 			return petsDto;
         }
 
-		public PetDto GetPet(Guid ownerId, Guid petId, bool trackChanges)
+		public PetDto GetPet(Guid salonId, Guid ownerId, Guid petId, bool trackChanges)
         {
-			var owner = _repository.Owner.GetOwner(ownerId, trackChanges);
+			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
@@ -47,9 +47,9 @@ namespace Service
 			return petDto;
         }
 
-		public PetDto CreatePetForOwner(Guid ownerId, PetForCreationDto petForCreation, bool trackChanges)
+		public PetDto CreatePetForOwner(Guid salonId, Guid ownerId, PetForCreationDto petForCreation, bool trackChanges)
         {
-			var owner = _repository.Owner.GetOwner(ownerId, trackChanges);
+			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
@@ -63,9 +63,9 @@ namespace Service
 			return petToReturn;
         }
 
-		public void DeletePetForOwner(Guid ownerId, Guid id, bool trackChanges)
+		public void DeletePetForOwner(Guid salonId, Guid ownerId, Guid id, bool trackChanges)
 		{
-			var owner = _repository.Owner.GetOwner(ownerId, trackChanges);
+			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
@@ -77,9 +77,9 @@ namespace Service
 			_repository.Save();
 		}
 
-        public void UpdatePetForOwner(Guid ownerId, Guid id, PetForUpdateDto petForUpdate, bool ownerTrackChanges, bool petTrackChanges)
+        public void UpdatePetForOwner(Guid salonId, Guid ownerId, Guid id, PetForUpdateDto petForUpdate, bool ownerTrackChanges, bool petTrackChanges)
         {
-            var owner = _repository.Owner.GetOwner(ownerId, trackChanges: ownerTrackChanges);
+            var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges: ownerTrackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
@@ -91,9 +91,9 @@ namespace Service
 			_repository.Save();
         }
 
-        public (PetForUpdateDto petToPatch, Pet petEntity) GetPetForPatch(Guid ownerId, Guid id, bool ownerTrackChanges, bool petTrackChanges)
+        public (PetForUpdateDto petToPatch, Pet petEntity) GetPetForPatch(Guid salonId, Guid ownerId, Guid id, bool ownerTrackChanges, bool petTrackChanges)
         {
-            var owner = _repository.Owner.GetOwner(ownerId, ownerTrackChanges);
+            var owner = _repository.Owner.GetOwner(salonId, ownerId, ownerTrackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 

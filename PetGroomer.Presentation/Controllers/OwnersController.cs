@@ -5,7 +5,7 @@ using Shared.DataTransferObjects;
 
 namespace PetGroomer.Presentation.Controllers
 {
-	[Route("api/owners")]
+	[Route("api/salons/{salonId}/owners")]
 	[ApiController]
 	public class OwnersController : ControllerBase
 	{
@@ -14,46 +14,46 @@ namespace PetGroomer.Presentation.Controllers
 		public OwnersController(IServiceManager service) => _service = service;
 
 		[HttpGet]
-		public IActionResult GetOwners()
+		public IActionResult GetOwners(Guid salonId)
         {
-			var owners = _service.OwnerService.GetAllOwners(trackChanges: false);
+			var owners = _service.OwnerService.GetOwners(salonId, trackChanges: false);
 
 			return Ok(owners);
 		}
 
-		[HttpGet("{id:guid}", Name = "OwnerById")]
-		public IActionResult GetOwner(Guid id)
+		[HttpGet("{ownerId:guid}", Name = "OwnerById")]
+		public IActionResult GetOwner(Guid salonId, Guid ownerId)
         {
-			var owner = _service.OwnerService.GetOwner(id, trackChanges: false);
+			var owner = _service.OwnerService.GetOwner(salonId, ownerId, trackChanges: false);
 			return Ok(owner);
         }
 
 		[HttpPost]
-		public IActionResult CreateOwner([FromBody] OwnerForCreationDto owner)
+		public IActionResult CreateOwner(Guid salonId, [FromBody] OwnerForCreationDto owner)
         {
 			if (owner is null)
 				return BadRequest("OwnerForCreationDto object is null.");
 
-			var createdOwner = _service.OwnerService.CreateOwner(owner);
+			var createdOwner = _service.OwnerService.CreateOwner(salonId, owner);
 
-			return CreatedAtRoute("OwnerById", new { id = createdOwner.Id }, createdOwner);
+			return CreatedAtRoute("OwnerById", new { salonId, ownerId = createdOwner.Id }, createdOwner);
         }
 
 		[HttpDelete("{id:guid}")]
-		public IActionResult DeleteOwner(Guid id)
+		public IActionResult DeleteOwner(Guid salonId, Guid id)
 		{
-			_service.OwnerService.DeleteOwner(id, trackChanges: false);
+			_service.OwnerService.DeleteOwner(salonId, id, trackChanges: false);
 
 			return NoContent();
 		}
 
 		[HttpPut("{id:guid}")]
-		public IActionResult UpdateOwner(Guid id, [FromBody] OwnerForUpdateDto owner)
+		public IActionResult UpdateOwner(Guid salonId, Guid id, [FromBody] OwnerForUpdateDto owner)
 		{
 			if (owner is null)
 				return BadRequest("OwnerForUpdate object is null.");
 
-			_service.OwnerService.UpdateOwner(id, owner, trackChanges: true);
+			_service.OwnerService.UpdateOwner(salonId, id, owner, trackChanges: true);
 
 			return NoContent();
 		}
