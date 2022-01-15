@@ -18,7 +18,7 @@ namespace Repository.Configuration
                     Name = "Fozzie",
                     Notes = "Energetic pet",
                     Type = PetTypes.Dog,
-                    OwnerId = new Guid("f17c14d9-425b-46c6-86b4-2d8478f16fd2")
+                    OwnerId = new Guid("f17c14d9-425b-46c6-86b4-2d8478f16fd2") // Kyle
                 },
                 new Pet
                 {
@@ -26,7 +26,7 @@ namespace Repository.Configuration
                     Name = "Rosie",
                     Notes = "annoying",
                     Type = PetTypes.Dog,
-                    OwnerId = new Guid("f17c14d9-425b-46c6-86b4-2d8478f16fd2")
+                    OwnerId = new Guid("f17c14d9-425b-46c6-86b4-2d8478f16fd2") // Kyle
                 },
                 new Pet
                 {
@@ -34,14 +34,14 @@ namespace Repository.Configuration
                     Name = "Stormy",
                     Notes = "ugliest dog",
                     Type = PetTypes.Dog,
-                    OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88")
+                    OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88") // Kathleen
                 },
                 new Pet
                 {
                     Id = new Guid("ce005075-ff5c-4f25-9f63-2ac00673abe6"),
                     Name = "Mittens",
                     Type = PetTypes.Cat,
-                    OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88")
+                    OwnerId = new Guid("4f0528d3-5f4b-4333-9801-d31ae2888d88") // Kathleen
                 }
             );
         }

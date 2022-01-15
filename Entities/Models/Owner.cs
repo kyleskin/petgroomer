@@ -22,7 +22,11 @@ namespace Entities.Models
 		[Required(ErrorMessage = "Owner phone number is required.")]
 		public string? Phone { get; set; }
 
+		[ForeignKey(nameof(Salon))]	
+		public Guid SalonId { get; set; }
+
 		public ICollection<Pet>? Pets { get; set; }
+		
 	}
 }
 

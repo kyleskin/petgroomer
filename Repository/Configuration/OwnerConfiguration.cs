@@ -18,6 +18,7 @@ namespace Repository.Configuration
                     LastName = "Skinner",
                     Email = "kyle@email.com",
                     Phone = "7203832311",
+                    SalonId = new Guid("ef85d02e-b920-4f74-9df0-9072e552a7a2") // Best Pet Groomer
                 },
                 new Owner
                 {
@@ -25,7 +26,8 @@ namespace Repository.Configuration
                     FirstName = "Kathleen",
                     LastName = "Skinner",
                     Email = "kathleen@email.com",
-                    Phone = "7032826710"
+                    Phone = "7032826710",
+                    SalonId = new Guid("ef85d02e-b920-4f74-9df0-9072e552a7a2") // Best Pet Groomer
                 }
             );
         }

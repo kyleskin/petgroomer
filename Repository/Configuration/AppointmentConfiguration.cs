@@ -18,7 +18,7 @@ namespace Repository.Configuration
                     Duration = 30,
                     Details = "short cut and shampoo",
                     PetId = new Guid("db5ca57b-3979-40f2-9999-6afae0304bec"),
-                    GroomerId = new Guid("fd3efa8f-c484-46c8-97e7-de38df002432")
+                    GroomerId = new Guid("fd3efa8f-c484-46c8-97e7-de38df002432") // John
                 },
                 new Appointment
                 {
@@ -27,7 +27,7 @@ namespace Repository.Configuration
                     Duration = 45,
                     Details = "matted and lice",
                     PetId = new Guid("43acbff7-92d5-47e7-94db-89195c296e3f"),
-                    GroomerId = new Guid("ecb770fa-b1f3-4a1d-afec-f9d20893fe07")
+                    GroomerId = new Guid("aedbe5cc-bd60-4f5b-9a66-69a146e78698") // Amy
                 }
             );
         }
