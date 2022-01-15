@@ -21,6 +21,8 @@ namespace PetGroomer
 			CreateMap<PetForUpdateDto, Pet>().ReverseMap();
 
 			CreateMap<OwnerForUpdateDto, Owner>();
+
+			CreateMap<Salon, SalonDto>();
 		}
 	}
 }

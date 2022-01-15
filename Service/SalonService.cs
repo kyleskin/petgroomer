@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 
 namespace Service
 {
@@ -18,6 +20,16 @@ namespace Service
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
+        }
+
+        public SalonDto GetSalon(Guid salonId, bool trackChanges)
+        {
+            var salon = _repository.Salon.GetSalon(salonId, trackChanges);
+            if (salon is null)
+                throw new SalonNotFoundException(salonId);
+
+            var salonDto = _mapper.Map<SalonDto>(salon);
+            return salonDto;
         }
     }
 }

@@ -25,6 +25,8 @@ namespace Service
         public IOwnerService OwnerService => _ownerService.Value;
         public IPetService PetService => _petService.Value;
         public IAppointmentService AppointmentService => _appointmentService.Value;
+        public ISalonService SalonService => _salonService.Value;
+        public IGroomerService GroomerService => _groomerService.Value;
     }
 }
 

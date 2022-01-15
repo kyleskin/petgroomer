@@ -13,5 +13,9 @@ namespace Repository
             : base(repositoryContext)
         {
         }
+
+        public Salon GetSalon(Guid salonId, bool trackChanges) =>
+            FindByCondition(s => s.Id.Equals(salonId), trackChanges)
+            .SingleOrDefault();
     }
 }
