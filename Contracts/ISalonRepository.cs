@@ -8,6 +8,6 @@ namespace Contracts
 {
     public interface ISalonRepository
     {
-        Salon GetSalon(Guid salonId, bool trackChanges);
+        Salon? GetSalon(Guid salonId, bool trackChanges);
     }
 }

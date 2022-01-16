@@ -15,7 +15,7 @@ namespace Repository
 			FindByCondition(p => p.OwnerId.Equals(ownerId), trackChanges)
 			.OrderBy(p => p.Name).ToList();
 
-		public Pet GetPet(Guid ownerId, Guid petId, bool trackChanges) =>
+		public Pet? GetPet(Guid ownerId, Guid petId, bool trackChanges) =>
 			FindByCondition(p => p.OwnerId.Equals(ownerId) && p.Id.Equals(petId), trackChanges)
 			.SingleOrDefault();
 

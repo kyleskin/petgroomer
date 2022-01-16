@@ -9,7 +9,7 @@ namespace Contracts
     public interface IGroomerRepository
     {
         IEnumerable<Groomer> GetGroomers(Guid salonId, bool trackChanges);
-        Groomer GetGroomer(Guid salonId, Guid groomerId, bool trackChanges);
+        Groomer? GetGroomer(Guid salonId, Guid groomerId, bool trackChanges);
         void CreateGroomer(Guid salonId, Groomer groomer);
         void DeleteGroomer(Groomer groomer);
     }
