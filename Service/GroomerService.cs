@@ -64,7 +64,7 @@ namespace Service
             return groomerToReturn;
         }
 
-        public void DeleteGroomerInSalon(Guid salonId, Guid groomerId, bool trackChanges)
+        public void DeleteGroomerFromSalon(Guid salonId, Guid groomerId, bool trackChanges)
         {
             var salon = _repository.Salon.GetSalon(salonId, trackChanges);
             if (salon is null)

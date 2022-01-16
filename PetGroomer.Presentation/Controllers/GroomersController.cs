@@ -44,7 +44,7 @@ namespace PetGroomer.Presentation.Controllers
         [HttpDelete("{id:guid}")]
         public IActionResult DeleteGroomerFromSalon(Guid salonId, Guid id)
         {
-            _service.GroomerService.DeleteGroomerInSalon(salonId, id, trackChages: false);
+            _service.GroomerService.DeleteGroomerFromSalon(salonId, id, trackChages: false);
 
             return NoContent();
         }
