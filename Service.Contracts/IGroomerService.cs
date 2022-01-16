@@ -8,10 +8,10 @@ namespace Service.Contracts
 {
     public interface IGroomerService
     {
-        IEnumerable<GroomerDto> GetGroomers(Guid salonId, bool trackChanges);
-        GroomerDto GetGroomer(Guid salonId, Guid groomerId, bool trackChanges);
-        GroomerDto CreateGroomerInSalon(Guid salonId, GroomerForCreationDto groomerForCreation, bool trackChages);
-        void DeleteGroomerFromSalon(Guid salonId, Guid groomerId, bool trackChages);
+        Task<IEnumerable<GroomerDto>> GetGroomersAsync(Guid salonId, bool trackChanges);
+        Task<GroomerDto> GetGroomerAsync(Guid salonId, Guid groomerId, bool trackChanges);
+        Task<GroomerDto> CreateGroomerInSalonAsync(Guid salonId, GroomerForCreationDto groomerForCreation, bool trackChages);
+        Task DeleteGroomerFromSalonAsync(Guid salonId, Guid groomerId, bool trackChages);
 
     }
 }

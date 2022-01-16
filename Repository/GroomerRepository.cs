@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -14,13 +15,14 @@ namespace Repository
         {
         }
 
-        public IEnumerable<Groomer> GetGroomers(Guid salonId, bool trackChanges) =>
-            FindByCondition(g => g.SalonId.Equals(salonId), trackChanges)
-            .OrderBy(g => g.LastName).ToList();
+        public async Task<IEnumerable<Groomer>> GetGroomersAsync(Guid salonId, bool trackChanges) =>
+            await FindByCondition(g => g.SalonId.Equals(salonId), trackChanges)
+            .OrderBy(g => g.LastName)
+            .ToListAsync();
 
-        public Groomer? GetGroomer(Guid salonId, Guid groomerId, bool trackChanges) =>
-            FindByCondition(g => g.SalonId.Equals(salonId) && g.Id.Equals(groomerId), trackChanges)
-            .SingleOrDefault();
+        public async Task<Groomer>? GetGroomerAsync(Guid salonId, Guid groomerId, bool trackChanges) =>
+            await FindByCondition(g => g.SalonId.Equals(salonId) && g.Id.Equals(groomerId), trackChanges)
+            .SingleOrDefaultAsync();
         public void CreateGroomer(Guid salonId, Groomer groomer)
         {
             groomer.SalonId = salonId;
@@ -28,8 +30,5 @@ namespace Repository
         }
 
         public void DeleteGroomer(Groomer groomer) => Delete(groomer);
-
-        
-
     }
 }

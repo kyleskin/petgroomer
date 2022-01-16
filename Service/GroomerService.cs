@@ -23,25 +23,25 @@ namespace Service
             _mapper = mapper;
         }
 
-        public IEnumerable<GroomerDto> GetGroomers(Guid salonId, bool trackChanges)
+        public async Task<IEnumerable<GroomerDto>> GetGroomersAsync(Guid salonId, bool trackChanges)
         {
-            var salon = _repository.Salon.GetSalon(salonId, trackChanges: false);
+            var salon = await _repository.Salon.GetSalonAsync(salonId, trackChanges: false);
             if (salon is null)
                 throw new SalonNotFoundException(salonId);
 
-            var groomers = _repository.Groomer.GetGroomers(salonId, trackChanges: false);
+            var groomers = await _repository.Groomer.GetGroomersAsync(salonId, trackChanges: false);
             var groomersDto = _mapper.Map<IEnumerable<GroomerDto>>(groomers);
 
             return groomersDto;
         }
 
-        public GroomerDto GetGroomer(Guid salonId, Guid groomerId, bool trackChanges)
+        public async Task<GroomerDto> GetGroomerAsync(Guid salonId, Guid groomerId, bool trackChanges)
         {
-            var salon = _repository.Salon.GetSalon(salonId, trackChanges);
+            var salon = await _repository.Salon.GetSalonAsync(salonId, trackChanges);
             if (salon is null)
                 throw new SalonNotFoundException(salonId);
 
-            var groomer = _repository.Groomer.GetGroomer(salonId, groomerId, trackChanges);
+            var groomer = await _repository.Groomer.GetGroomerAsync(salonId, groomerId, trackChanges);
             if (groomer is null)
                 throw new GroomerNotFoundException(groomerId);
 
@@ -50,32 +50,32 @@ namespace Service
             return groomerDto;
         }
 
-        public GroomerDto CreateGroomerInSalon(Guid salonId, GroomerForCreationDto groomerForCreation, bool trackChanges)
+        public async Task<GroomerDto> CreateGroomerInSalonAsync(Guid salonId, GroomerForCreationDto groomerForCreation, bool trackChanges)
         {
-            var salon = _repository.Salon.GetSalon(salonId, trackChanges);
+            var salon = await _repository.Salon.GetSalonAsync(salonId, trackChanges);
             if (salon is null)
                 throw new SalonNotFoundException(salonId);
 
             var groomerEntity = _mapper.Map<Groomer>(groomerForCreation);
             _repository.Groomer.CreateGroomer(salonId, groomerEntity);
-            _repository.Save();
+            await _repository.SaveAsync();
 
             var groomerToReturn = _mapper.Map<GroomerDto>(groomerEntity);
             return groomerToReturn;
         }
 
-        public void DeleteGroomerFromSalon(Guid salonId, Guid groomerId, bool trackChanges)
+        public async Task DeleteGroomerFromSalonAsync(Guid salonId, Guid groomerId, bool trackChanges)
         {
-            var salon = _repository.Salon.GetSalon(salonId, trackChanges);
+            var salon = await _repository.Salon.GetSalonAsync(salonId, trackChanges);
             if (salon is null)
                 throw new SalonNotFoundException(salonId);
 
-            var groomer = _repository.Groomer.GetGroomer(salonId, groomerId, trackChanges);
+            var groomer = await _repository.Groomer.GetGroomerAsync(salonId, groomerId, trackChanges);
             if (groomer is null)
                 throw new GroomerNotFoundException(groomerId);
 
             _repository.Groomer.DeleteGroomer(groomer);
-            _repository.Save();
+            await _repository.SaveAsync();
         }        
     }
 }

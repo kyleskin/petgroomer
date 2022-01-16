@@ -17,34 +17,34 @@ namespace PetGroomer.Presentation.Controllers
         public GroomersController(IServiceManager service) => _service = service;
 
         [HttpGet]
-        public IActionResult GetGroomersInSalon(Guid salonId)
+        public async Task<IActionResult> GetGroomersInSalon(Guid salonId)
         {
-            var groomers = _service.GroomerService.GetGroomers(salonId, trackChanges: false);
+            var groomers = await _service.GroomerService.GetGroomersAsync(salonId, trackChanges: false);
             return Ok(groomers);
         }
 
         [HttpGet("{id:guid}", Name = "GetGroomerInSalon")]
-        public IActionResult GetGroomerInSalon(Guid salonId, Guid id)
+        public async Task<IActionResult> GetGroomerInSalon(Guid salonId, Guid id)
         {
-            var groomer = _service.GroomerService.GetGroomer(salonId, id, trackChanges: false);
+            var groomer = await _service.GroomerService.GetGroomerAsync(salonId, id, trackChanges: false);
             return Ok(groomer);
         }
 
         [HttpPost]
-        public IActionResult CreateGroomerInSalon(Guid salonId, [FromBody] GroomerForCreationDto groomer)
+        public async Task<IActionResult> CreateGroomerInSalon(Guid salonId, [FromBody] GroomerForCreationDto groomer)
         {
             if (groomer is null)
                 return BadRequest("GroomerForCreationDto is null.");
 
-            var groomerToReturn = _service.GroomerService.CreateGroomerInSalon(salonId, groomer, trackChages: false);
+            var groomerToReturn = await _service.GroomerService.CreateGroomerInSalonAsync(salonId, groomer, trackChages: false);
 
             return CreatedAtRoute("GetGroomerInSalon", new { salonId, id = groomerToReturn.Id }, groomerToReturn);
         }
 
         [HttpDelete("{id:guid}")]
-        public IActionResult DeleteGroomerFromSalon(Guid salonId, Guid id)
+        public async Task<IActionResult> DeleteGroomerFromSalon(Guid salonId, Guid id)
         {
-            _service.GroomerService.DeleteGroomerFromSalon(salonId, id, trackChages: false);
+            await _service.GroomerService.DeleteGroomerFromSalonAsync(salonId, id, trackChages: false);
 
             return NoContent();
         }

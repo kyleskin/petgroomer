@@ -22,9 +22,9 @@ namespace Service
             _mapper = mapper;
         }
 
-        public SalonDto GetSalon(Guid salonId, bool trackChanges)
+        public async Task<SalonDto> GetSalonAsync(Guid salonId, bool trackChanges)
         {
-            var salon = _repository.Salon.GetSalon(salonId, trackChanges);
+            var salon = await _repository.Salon.GetSalonAsync(salonId, trackChanges);
             if (salon is null)
                 throw new SalonNotFoundException(salonId);
 

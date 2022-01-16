@@ -5,11 +5,11 @@ namespace Service.Contracts
 {
 	public interface IOwnerService
 	{
-		IEnumerable<OwnerDto> GetOwners(Guid salonId, bool trackChanges);
-		OwnerDto GetOwner(Guid salonId, Guid ownerId, bool trackChanges);
-		OwnerDto CreateOwner(Guid salonId, OwnerForCreationDto owner);
-		void DeleteOwner(Guid salondId, Guid ownerId, bool trackChanges);
-		void UpdateOwner(Guid salondId, Guid ownerId, OwnerForUpdateDto ownerForUpdate, bool trackChanges);
+		Task<IEnumerable<OwnerDto>> GetOwnersAsync(Guid salonId, bool trackChanges);
+		Task<OwnerDto> GetOwnerAsync(Guid salonId, Guid ownerId, bool trackChanges);
+		Task<OwnerDto> CreateOwnerAsync(Guid salonId, OwnerForCreationDto owner);
+		Task DeleteOwnerAsync(Guid salondId, Guid ownerId, bool trackChanges);
+		Task UpdateOwnerAsync(Guid salondId, Guid ownerId, OwnerForUpdateDto ownerForUpdate, bool trackChanges);
 	}
 }
 

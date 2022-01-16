@@ -1,6 +1,7 @@
 ﻿using System;
 using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -11,13 +12,14 @@ namespace Repository
 		{
 		}
 
-		public IEnumerable<Pet> GetPets(Guid ownerId, bool trackChanges) =>
-			FindByCondition(p => p.OwnerId.Equals(ownerId), trackChanges)
-			.OrderBy(p => p.Name).ToList();
+		public async Task<IEnumerable<Pet>> GetPetsAsync(Guid ownerId, bool trackChanges) =>
+			await FindByCondition(p => p.OwnerId.Equals(ownerId), trackChanges)
+			.OrderBy(p => p.Name)
+			.ToListAsync();
 
-		public Pet? GetPet(Guid ownerId, Guid petId, bool trackChanges) =>
-			FindByCondition(p => p.OwnerId.Equals(ownerId) && p.Id.Equals(petId), trackChanges)
-			.SingleOrDefault();
+		public async Task<Pet>? GetPetAsync(Guid ownerId, Guid petId, bool trackChanges) =>
+			await FindByCondition(p => p.OwnerId.Equals(ownerId) && p.Id.Equals(petId), trackChanges)
+			.SingleOrDefaultAsync();
 
 		public void CreatePetForOwner(Guid ownerId, Pet pet)
         {

@@ -21,16 +21,16 @@ namespace Service
 			_mapper = mapper;
 		}
 
-		public IEnumerable<OwnerDto> GetOwners(Guid salonId, bool trackChanges)
+		public async Task<IEnumerable<OwnerDto>> GetOwnersAsync(Guid salonId, bool trackChanges)
         {
-			var owners = _repository.Owner.GetOwners(salonId, trackChanges);
+			var owners = await _repository.Owner.GetOwnersAsync(salonId, trackChanges);
 			var ownersDto = _mapper.Map<IEnumerable<OwnerDto>>(owners);
 			return ownersDto;
         }
 
-		public OwnerDto GetOwner(Guid salonId, Guid ownerId, bool trackChanges)
+		public async Task<OwnerDto> GetOwnerAsync(Guid salonId, Guid ownerId, bool trackChanges)
         {
-			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
+			var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
@@ -38,36 +38,36 @@ namespace Service
 			return ownerDto;
         }
 
-		public OwnerDto CreateOwner(Guid salonId, OwnerForCreationDto owner)
+		public async Task<OwnerDto> CreateOwnerAsync(Guid salonId, OwnerForCreationDto owner)
         {
 			var ownerEntity = _mapper.Map<Owner>(owner);
 
 			_repository.Owner.CreateOwner(salonId, ownerEntity);
-			_repository.Save();
+			await _repository.SaveAsync();
 
 			var ownerToReturn = _mapper.Map<OwnerDto>(ownerEntity);
 
 			return ownerToReturn;
         }
 
-		public void DeleteOwner(Guid salonId, Guid ownerId, bool trackChanges)
+		public async Task DeleteOwnerAsync(Guid salonId, Guid ownerId, bool trackChanges)
 		{
-			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
+			var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
 			_repository.Owner.DeleteOwner(owner);
-			_repository.Save();
+			await _repository.SaveAsync();
 		}
 
-        public void UpdateOwner(Guid salonId, Guid ownerId, OwnerForUpdateDto ownerForUpdate, bool trackChanges)
+        public async Task UpdateOwnerAsync(Guid salonId, Guid ownerId, OwnerForUpdateDto ownerForUpdate, bool trackChanges)
         {
-            var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
+            var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
 			_mapper.Map(ownerForUpdate, owner);
-			_repository.Save();
+			await _repository.SaveAsync();
         }
     }
 }

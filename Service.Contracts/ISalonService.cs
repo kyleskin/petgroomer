@@ -8,6 +8,6 @@ namespace Service.Contracts
 {
     public interface ISalonService
     {
-        SalonDto GetSalon(Guid salonId, bool trackChanges);
+        Task<SalonDto> GetSalonAsync(Guid salonId, bool trackChanges);
     }
 }

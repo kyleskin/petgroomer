@@ -8,6 +8,6 @@ namespace Contracts
 {
     public interface ISalonRepository
     {
-        Salon? GetSalon(Guid salonId, bool trackChanges);
+        Task<Salon>? GetSalonAsync(Guid salonId, bool trackChanges);
     }
 }

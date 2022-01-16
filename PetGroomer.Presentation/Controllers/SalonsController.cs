@@ -17,9 +17,9 @@ namespace PetGroomer.Presentation.Controllers
 
         
         [HttpGet("{id:guid}", Name = "SalonById")]
-        public IActionResult GetSalon(Guid id)
+        public async Task<IActionResult> GetSalon(Guid id)
         {
-            var salon = _service.SalonService.GetSalon(id, trackChanges: false);
+            var salon = await _service.SalonService.GetSalonAsync(id, trackChanges: false);
             return Ok(salon);
         }
     }

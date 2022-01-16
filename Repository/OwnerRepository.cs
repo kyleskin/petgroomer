@@ -1,6 +1,7 @@
 ﻿using System;
 using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -11,13 +12,14 @@ namespace Repository
         {
 		}
 
-		public IEnumerable<Owner> GetOwners(Guid salonId, bool trackChanges) =>
-			FindByCondition(o => o.SalonId.Equals(salonId), trackChanges)
-			.OrderBy(o => o.LastName).ToList();
+		public async Task<IEnumerable<Owner>> GetOwnersAsync(Guid salonId, bool trackChanges) =>
+			await FindByCondition(o => o.SalonId.Equals(salonId), trackChanges)
+			.OrderBy(o => o.LastName)
+			.ToListAsync();
 
-		public Owner? GetOwner(Guid salonId, Guid ownerId, bool trackChanges) =>
-			FindByCondition(o => o.SalonId.Equals(salonId) && o.Id.Equals(ownerId), trackChanges)
-			.SingleOrDefault();
+		public async Task<Owner>? GetOwnerAsync(Guid salonId, Guid ownerId, bool trackChanges) =>
+			await FindByCondition(o => o.SalonId.Equals(salonId) && o.Id.Equals(ownerId), trackChanges)
+			.SingleOrDefaultAsync();
 
 		public void CreateOwner(Guid salonId, Owner owner)
 		{

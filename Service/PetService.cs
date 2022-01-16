@@ -21,25 +21,25 @@ namespace Service
 			_mapper = mapper;
 		}
 
-		public IEnumerable<PetDto> GetPets(Guid salonId, Guid ownerId, bool trackChanges)
+		public async Task<IEnumerable<PetDto>> GetPetsAsync(Guid salonId, Guid ownerId, bool trackChanges)
         {
-			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
+			var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
-			var petsFromDb = _repository.Pet.GetPets(ownerId, trackChanges);
+			var petsFromDb = await _repository.Pet.GetPetsAsync(ownerId, trackChanges);
 			var petsDto = _mapper.Map<IEnumerable<PetDto>>(petsFromDb);
 
 			return petsDto;
         }
 
-		public PetDto GetPet(Guid salonId, Guid ownerId, Guid petId, bool trackChanges)
+		public async Task<PetDto> GetPetAsync(Guid salonId, Guid ownerId, Guid petId, bool trackChanges)
         {
-			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
+			var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
-			var petDb = _repository.Pet.GetPet(ownerId, petId, trackChanges);
+			var petDb = await _repository.Pet.GetPetAsync(ownerId, petId, trackChanges);
 			if (petDb is null)
 				throw new PetNotFoundException(petId);
 
@@ -47,57 +47,57 @@ namespace Service
 			return petDto;
         }
 
-		public PetDto CreatePetForOwner(Guid salonId, Guid ownerId, PetForCreationDto petForCreation, bool trackChanges)
+		public async Task<PetDto> CreatePetForOwnerAsync(Guid salonId, Guid ownerId, PetForCreationDto petForCreation, bool trackChanges)
         {
-			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
+			var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
 			var petEntity = _mapper.Map<Pet>(petForCreation);
 
 			_repository.Pet.CreatePetForOwner(ownerId, petEntity);
-			_repository.Save();
+			await _repository.SaveAsync();
 
 			var petToReturn = _mapper.Map<PetDto>(petEntity);
 
 			return petToReturn;
         }
 
-		public void DeletePetForOwner(Guid salonId, Guid ownerId, Guid id, bool trackChanges)
+		public async Task DeletePetForOwnerAsync(Guid salonId, Guid ownerId, Guid id, bool trackChanges)
 		{
-			var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges);
+			var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
-			var petForOwner = _repository.Pet.GetPet(ownerId, id, trackChanges);
+			var petForOwner = await _repository.Pet.GetPetAsync(ownerId, id, trackChanges);
 			if (petForOwner is null)
 				throw new PetNotFoundException(id);
 
 			_repository.Pet.DeletePet(petForOwner);
-			_repository.Save();
+			await _repository.SaveAsync();
 		}
 
-        public void UpdatePetForOwner(Guid salonId, Guid ownerId, Guid id, PetForUpdateDto petForUpdate, bool ownerTrackChanges, bool petTrackChanges)
+        public async Task UpdatePetForOwnerAsync(Guid salonId, Guid ownerId, Guid id, PetForUpdateDto petForUpdate, bool ownerTrackChanges, bool petTrackChanges)
         {
-            var owner = _repository.Owner.GetOwner(salonId, ownerId, trackChanges: ownerTrackChanges);
+            var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges: ownerTrackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
-			var pet = _repository.Pet.GetPet(ownerId, id, trackChanges: petTrackChanges);
+			var pet = await _repository.Pet.GetPetAsync(ownerId, id, trackChanges: petTrackChanges);
 			if (pet is null)
 				throw new PetNotFoundException(id);
 
 			_mapper.Map(petForUpdate, pet);
-			_repository.Save();
+			await _repository.SaveAsync();
         }
 
-        public (PetForUpdateDto petToPatch, Pet petEntity) GetPetForPatch(Guid salonId, Guid ownerId, Guid id, bool ownerTrackChanges, bool petTrackChanges)
+        public async Task<(PetForUpdateDto petToPatch, Pet petEntity)> GetPetForPatchAsync(Guid salonId, Guid ownerId, Guid id, bool ownerTrackChanges, bool petTrackChanges)
         {
-            var owner = _repository.Owner.GetOwner(salonId, ownerId, ownerTrackChanges);
+            var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, ownerTrackChanges);
 			if (owner is null)
 				throw new OwnerNotFoundException(ownerId);
 
-			var petEntity = _repository.Pet.GetPet(ownerId, id, petTrackChanges);
+			var petEntity = await _repository.Pet.GetPetAsync(ownerId, id, petTrackChanges);
 			if (petEntity is null)
 				throw new PetNotFoundException(id);
 
@@ -106,10 +106,10 @@ namespace Service
 			return (petToPatch, petEntity);
         }
 
-        public void SaveChangesForPatch(PetForUpdateDto petToPatch, Pet petEntity)
+        public async Task SaveChangesForPatchAsync(PetForUpdateDto petToPatch, Pet petEntity)
         {
             _mapper.Map(petToPatch, petEntity);
-			_repository.Save();
+			await _repository.SaveAsync();
         }
     }
 }

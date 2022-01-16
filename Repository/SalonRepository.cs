@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -14,8 +15,8 @@ namespace Repository
         {
         }
 
-        public Salon? GetSalon(Guid salonId, bool trackChanges) =>
-            FindByCondition(s => s.Id.Equals(salonId), trackChanges)
-            .SingleOrDefault();
+        public async Task<Salon>? GetSalonAsync(Guid salonId, bool trackChanges) =>
+            await FindByCondition(s => s.Id.Equals(salonId), trackChanges)
+            .SingleOrDefaultAsync();
     }
 }

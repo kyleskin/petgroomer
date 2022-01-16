@@ -9,7 +9,7 @@ namespace Contracts
 		ISalonRepository Salon { get; }
 		IGroomerRepository Groomer { get; }
 
-		void Save();
+		Task SaveAsync();
 	}
 }
 
