@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
 
 namespace PetGroomer.Presentation.Controllers
 {
@@ -14,11 +16,13 @@ namespace PetGroomer.Presentation.Controllers
 		public OwnersController(IServiceManager service) => _service = service;
 
 		[HttpGet]
-		public async Task<IActionResult> GetOwners(Guid salonId)
+		public async Task<IActionResult> GetOwners(Guid salonId, [FromQuery] OwnerParameters ownerParameters)
         {
-			var owners = await _service.OwnerService.GetOwnersAsync(salonId, trackChanges: false);
+			var pagedResult = await _service.OwnerService.GetOwnersAsync(salonId, ownerParameters, trackChanges: false);
 
-			return Ok(owners);
+			Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
+
+			return Ok(pagedResult.owners);
 		}
 
 		[HttpGet("{ownerId:guid}", Name = "OwnerById")]

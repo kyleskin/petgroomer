@@ -5,6 +5,7 @@ using Entities.Models;
 using Shared.DataTransferObjects;
 using AutoMapper;
 using Entities.Exceptions;
+using Shared.RequestFeatures;
 
 namespace Service
 {
@@ -21,11 +22,12 @@ namespace Service
 			_mapper = mapper;
 		}
 
-		public async Task<IEnumerable<OwnerDto>> GetOwnersAsync(Guid salonId, bool trackChanges)
+		public async Task<(IEnumerable<OwnerDto> owners, MetaData metaData)> GetOwnersAsync(Guid salonId, OwnerParameters ownerParameters, bool trackChanges)
         {
-			var owners = await _repository.Owner.GetOwnersAsync(salonId, trackChanges);
-			var ownersDto = _mapper.Map<IEnumerable<OwnerDto>>(owners);
-			return ownersDto;
+			var owners = await _repository.Owner.GetOwnersAsync(salonId, ownerParameters, trackChanges);
+			var ownersWithMetaData = await _repository.Owner.GetOwnersAsync(salonId, ownerParameters, trackChanges);
+			var ownersDto = _mapper.Map<IEnumerable<OwnerDto>>(ownersWithMetaData);
+			return (owners: ownersDto, metaData: ownersWithMetaData.MetaData);
         }
 
 		public async Task<OwnerDto> GetOwnerAsync(Guid salonId, Guid ownerId, bool trackChanges)
