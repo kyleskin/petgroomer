@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 
@@ -17,6 +18,7 @@ namespace PetGroomer.Presentation.Controllers
 
         
         [HttpGet("{id:guid}", Name = "SalonById")]
+        [Authorize]
         public async Task<IActionResult> GetSalon(Guid id)
         {
             var salon = await _service.SalonService.GetSalonAsync(id, trackChanges: false);
