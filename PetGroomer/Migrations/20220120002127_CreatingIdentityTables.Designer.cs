@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -10,9 +11,10 @@ using Repository;
 namespace PetGroomer.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20220120002127_CreatingIdentityTables")]
+    partial class CreatingIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +53,7 @@ namespace PetGroomer.Migrations
                         new
                         {
                             Id = new Guid("f184f942-063e-48a7-aa63-d926cbf3500f"),
-                            DateTime = new DateTime(2022, 1, 19, 17, 27, 52, 113, DateTimeKind.Local).AddTicks(4330),
+                            DateTime = new DateTime(2022, 1, 19, 17, 21, 26, 957, DateTimeKind.Local).AddTicks(5560),
                             Details = "short cut and shampoo",
                             Duration = 30,
                             GroomerId = new Guid("fd3efa8f-c484-46c8-97e7-de38df002432"),
@@ -60,7 +62,7 @@ namespace PetGroomer.Migrations
                         new
                         {
                             Id = new Guid("70c451a9-d7e0-4aa5-bf19-40ea1d86250c"),
-                            DateTime = new DateTime(2022, 1, 19, 17, 27, 52, 113, DateTimeKind.Local).AddTicks(4360),
+                            DateTime = new DateTime(2022, 1, 19, 17, 21, 26, 957, DateTimeKind.Local).AddTicks(5590),
                             Details = "matted and lice",
                             Duration = 45,
                             GroomerId = new Guid("aedbe5cc-bd60-4f5b-9a66-69a146e78698"),
