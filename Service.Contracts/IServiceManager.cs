@@ -8,6 +8,7 @@ namespace Service.Contracts
 		IAppointmentService AppointmentService { get; }
 		ISalonService SalonService { get; }
 		IGroomerService GroomerService { get; }
+		IAuthenticationService AuthenticationService { get; }
 	}
 }
 

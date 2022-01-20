@@ -26,6 +26,8 @@ namespace PetGroomer
 
 			CreateMap<Groomer, GroomerDto>();
 			CreateMap<GroomerForCreationDto, Groomer>();
+
+			CreateMap<UserForRegistrationDto, User>();
 		}
 	}
 }
