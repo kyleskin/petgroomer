@@ -1,9 +1,8 @@
-﻿using System;
-using Contracts;
+﻿using Contracts;
 
 namespace Repository
 {
-	public class RepositoryManager : IRepositoryManager
+    public class RepositoryManager : IRepositoryManager
 	{
         private readonly RepositoryContext _repositoryContext;
         private readonly Lazy<IOwnerRepository> _ownerRepository;

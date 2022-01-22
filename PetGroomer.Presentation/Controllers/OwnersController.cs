@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -7,7 +6,7 @@ using Shared.RequestFeatures;
 
 namespace PetGroomer.Presentation.Controllers
 {
-	[Route("api/salons/{salonId}/owners")]
+    [Route("api/salons/{salonId}/owners")]
 	[ApiController]
 	public class OwnersController : ControllerBase
 	{
@@ -33,7 +32,7 @@ namespace PetGroomer.Presentation.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> CreateOwner(Guid salonId, [FromBody] OwnerForCreationDto owner)
+		public async Task<IActionResult> CreateOwner(Guid salonId, [FromBody] OwnerCreationDto owner)
         {
 			if (owner is null)
 				return BadRequest("OwnerForCreationDto object is null.");
@@ -52,7 +51,7 @@ namespace PetGroomer.Presentation.Controllers
 		}
 
 		[HttpPut("{id:guid}")]
-		public async Task<IActionResult> UpdateOwner(Guid salonId, Guid id, [FromBody] OwnerForUpdateDto owner)
+		public async Task<IActionResult> UpdateOwner(Guid salonId, Guid id, [FromBody] OwnerUpdateDto owner)
 		{
 			if (owner is null)
 				return BadRequest("OwnerForUpdate object is null.");

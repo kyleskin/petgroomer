@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public class UserForRegistrationDto
+    public class UserRegistrationDto
     {
         public string? FirstName { get; init; }
         public string? LastName { get; init; }

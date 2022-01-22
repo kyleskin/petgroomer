@@ -5,5 +5,6 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record PetForUpdateDto(string Name, string? Notes, string Type);
+    public record OwnerUpdateDto(string FirstName, string LastName, string Email, string Phone,
+        IEnumerable<PetCreationDto> Pets);
 }

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using Entities.Exceptions;
@@ -50,7 +46,7 @@ namespace Service
             return groomerDto;
         }
 
-        public async Task<GroomerDto> CreateGroomerInSalonAsync(Guid salonId, GroomerForCreationDto groomerForCreation, bool trackChanges)
+        public async Task<GroomerDto> CreateGroomerInSalonAsync(Guid salonId, GroomerCreationDto groomerForCreation, bool trackChanges)
         {
             var salon = await _repository.Salon.GetSalonAsync(salonId, trackChanges);
             if (salon is null)

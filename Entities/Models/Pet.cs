@@ -1,10 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
-	public class Pet
+    public class Pet
 	{
 		[Column("PetId")]
 		public Guid Id { get; set; }

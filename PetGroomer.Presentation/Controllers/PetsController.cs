@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 
 namespace PetGroomer.Presentation.Controllers
 {
-	[Route("api/salons/{salonId}/owners/{ownerId}/pets")]
+    [Route("api/salons/{salonId}/owners/{ownerId}/pets")]
 	[ApiController]
 	public class PetsController : ControllerBase
 	{
@@ -29,7 +28,7 @@ namespace PetGroomer.Presentation.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> CreatePetForOwner(Guid salonId, Guid ownerId, [FromBody] PetForCreationDto pet)
+		public async Task<IActionResult> CreatePetForOwner(Guid salonId, Guid ownerId, [FromBody] PetCreationDto pet)
         {
 			if (pet is null)
 				return BadRequest("PetForCreationDto object is null.");
@@ -48,7 +47,7 @@ namespace PetGroomer.Presentation.Controllers
 		}
 
 		[HttpPut("{id:guid}")]
-		public async Task<IActionResult> UpdatePetForOwner(Guid salonId, Guid ownerId, Guid id, [FromBody] PetForUpdateDto pet)
+		public async Task<IActionResult> UpdatePetForOwner(Guid salonId, Guid ownerId, Guid id, [FromBody] PetUpdateDto pet)
 		{
 			if (pet is null)
 				return BadRequest("PetForUpdate object is null.");
@@ -59,7 +58,7 @@ namespace PetGroomer.Presentation.Controllers
 		}
 
 		[HttpPatch("{id:guid}")]
-		public async Task<IActionResult> PartiallyUpdatePetForOwner(Guid salonId, Guid ownerId, Guid id, [FromBody] JsonPatchDocument<PetForUpdateDto> patchDoc)
+		public async Task<IActionResult> PartiallyUpdatePetForOwner(Guid salonId, Guid ownerId, Guid id, [FromBody] JsonPatchDocument<PetUpdateDto> patchDoc)
 		{
 			if (patchDoc is null)
 				return BadRequest("patchDoc object sent from client is null.");
