@@ -31,7 +31,7 @@ namespace PetGroomer.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGroomerInSalon(Guid salonId, [FromBody] GroomerForCreationDto groomer)
+        public async Task<IActionResult> CreateGroomerInSalon(Guid salonId, [FromBody] GroomerCreationDto groomer)
         {
             if (groomer is null)
                 return BadRequest("GroomerForCreationDto is null.");

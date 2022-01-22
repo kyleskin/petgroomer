@@ -5,5 +5,5 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record GroomerForCreationDto(string FirstName, string LastName) {}
+    public record PetUpdateDto(string Name, string? Notes, string Type);
 }

@@ -40,7 +40,7 @@ namespace Service
 			return ownerDto;
         }
 
-		public async Task<OwnerDto> CreateOwnerAsync(Guid salonId, OwnerForCreationDto owner)
+		public async Task<OwnerDto> CreateOwnerAsync(Guid salonId, OwnerCreationDto owner)
         {
 			var ownerEntity = _mapper.Map<Owner>(owner);
 
@@ -62,7 +62,7 @@ namespace Service
 			await _repository.SaveAsync();
 		}
 
-        public async Task UpdateOwnerAsync(Guid salonId, Guid ownerId, OwnerForUpdateDto ownerForUpdate, bool trackChanges)
+        public async Task UpdateOwnerAsync(Guid salonId, Guid ownerId, OwnerUpdateDto ownerForUpdate, bool trackChanges)
         {
             var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges);
 			if (owner is null)

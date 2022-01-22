@@ -47,7 +47,7 @@ namespace Service
 			return petDto;
         }
 
-		public async Task<PetDto> CreatePetForOwnerAsync(Guid salonId, Guid ownerId, PetForCreationDto petForCreation, bool trackChanges)
+		public async Task<PetDto> CreatePetForOwnerAsync(Guid salonId, Guid ownerId, PetCreationDto petForCreation, bool trackChanges)
         {
 			var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges);
 			if (owner is null)
@@ -77,7 +77,7 @@ namespace Service
 			await _repository.SaveAsync();
 		}
 
-        public async Task UpdatePetForOwnerAsync(Guid salonId, Guid ownerId, Guid id, PetForUpdateDto petForUpdate, bool ownerTrackChanges, bool petTrackChanges)
+        public async Task UpdatePetForOwnerAsync(Guid salonId, Guid ownerId, Guid id, PetUpdateDto petForUpdate, bool ownerTrackChanges, bool petTrackChanges)
         {
             var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, trackChanges: ownerTrackChanges);
 			if (owner is null)
@@ -91,7 +91,7 @@ namespace Service
 			await _repository.SaveAsync();
         }
 
-        public async Task<(PetForUpdateDto petToPatch, Pet petEntity)> GetPetForPatchAsync(Guid salonId, Guid ownerId, Guid id, bool ownerTrackChanges, bool petTrackChanges)
+        public async Task<(PetUpdateDto petToPatch, Pet petEntity)> GetPetForPatchAsync(Guid salonId, Guid ownerId, Guid id, bool ownerTrackChanges, bool petTrackChanges)
         {
             var owner = await _repository.Owner.GetOwnerAsync(salonId, ownerId, ownerTrackChanges);
 			if (owner is null)
@@ -101,12 +101,12 @@ namespace Service
 			if (petEntity is null)
 				throw new PetNotFoundException(id);
 
-			var petToPatch = _mapper.Map<PetForUpdateDto>(petEntity);
+			var petToPatch = _mapper.Map<PetUpdateDto>(petEntity);
 
 			return (petToPatch, petEntity);
         }
 
-        public async Task SaveChangesForPatchAsync(PetForUpdateDto petToPatch, Pet petEntity)
+        public async Task SaveChangesForPatchAsync(PetUpdateDto petToPatch, Pet petEntity)
         {
             _mapper.Map(petToPatch, petEntity);
 			await _repository.SaveAsync();
