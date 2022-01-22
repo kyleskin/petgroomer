@@ -1,12 +1,11 @@
-﻿using System;
-using Contracts;
+﻿using Contracts;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using Shared.RequestFeatures;
 
 namespace Repository
 {
-	internal sealed class OwnerRepository : RepositoryBase<Owner>, IOwnerRepository
+    internal sealed class OwnerRepository : RepositoryBase<Owner>, IOwnerRepository
 	{
 		public OwnerRepository(RepositoryContext repositoryContext)
 			: base(repositoryContext)

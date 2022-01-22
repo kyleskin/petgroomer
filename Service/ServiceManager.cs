@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Contracts;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +7,7 @@ using Service.Contracts;
 
 namespace Service
 {
-	public sealed class ServiceManager : IServiceManager
+    public sealed class ServiceManager : IServiceManager
 	{
         private readonly Lazy<IOwnerService> _ownerService;
         private readonly Lazy<IPetService> _petService;

@@ -1,11 +1,10 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Contracts;
 using Service.Contracts;
 
 namespace Service
 {
-	public class AppointmentService : IAppointmentService
+    public class AppointmentService : IAppointmentService
 	{
 		private readonly IRepositoryManager _repository;
 		private readonly ILoggerManager _logger;

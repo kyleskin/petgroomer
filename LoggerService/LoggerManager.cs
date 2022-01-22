@@ -1,10 +1,9 @@
-﻿using System;
-using Contracts;
+﻿using Contracts;
 using NLog;
 
 namespace LoggerService
 {
-	public class LoggerManager : ILoggerManager
+    public class LoggerManager : ILoggerManager
 	{
 		private static ILogger logger = LogManager.GetCurrentClassLogger();
 

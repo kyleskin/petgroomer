@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -17,7 +13,7 @@ namespace PetGroomer.Presentation.Controllers
         public AuthenticationController(IServiceManager service) => _service = service;
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
+        public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDto userForRegistration)
         {
             var result = await _service.AuthenticationService.RegisterUser(userForRegistration);
 
@@ -34,7 +30,7 @@ namespace PetGroomer.Presentation.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
+        public async Task<IActionResult> Authenticate([FromBody] UserAuthenticationDto user)
         {
             if (!await _service.AuthenticationService.ValidateUser(user))
                 return Unauthorized();

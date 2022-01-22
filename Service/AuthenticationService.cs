@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Contracts;
 using Entities.Models;
@@ -35,7 +31,7 @@ namespace Service
             _userManager = userManager;
             _configuration = configuration;
         }
-        public async Task<IdentityResult> RegisterUser(UserForRegistrationDto userForRegistration)
+        public async Task<IdentityResult> RegisterUser(UserRegistrationDto userForRegistration)
         {
             var user = _mapper.Map<User>(userForRegistration);
 
@@ -47,7 +43,7 @@ namespace Service
             return result;
         }
 
-        public async Task<bool> ValidateUser(UserForAuthenticationDto userForAuth)
+        public async Task<bool> ValidateUser(UserAuthenticationDto userForAuth)
         {
             _user = await _userManager.FindByNameAsync(userForAuth.UserName);
 

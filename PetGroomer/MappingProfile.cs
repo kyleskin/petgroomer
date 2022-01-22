@@ -1,12 +1,10 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Entities.Models;
 using Shared.DataTransferObjects;
-using AutoMapper.Extensions.EnumMapping;
 
 namespace PetGroomer
 {
-	public class MappingProfile : Profile
+    public class MappingProfile : Profile
 	{
 		public MappingProfile()
 		{
@@ -14,20 +12,20 @@ namespace PetGroomer
 
 			CreateMap<Pet, PetDto>();
 
-			CreateMap<OwnerForCreationDto, Owner>();
+			CreateMap<OwnerCreationDto, Owner>();
 
-			CreateMap<PetForCreationDto, Pet>();
+			CreateMap<PetCreationDto, Pet>();
 
-			CreateMap<PetForUpdateDto, Pet>().ReverseMap();
+			CreateMap<PetUpdateDto, Pet>().ReverseMap();
 
-			CreateMap<OwnerForUpdateDto, Owner>();
+			CreateMap<OwnerUpdateDto, Owner>();
 
 			CreateMap<Salon, SalonDto>();
 
 			CreateMap<Groomer, GroomerDto>();
-			CreateMap<GroomerForCreationDto, Groomer>();
+			CreateMap<GroomerCreationDto, Groomer>();
 
-			CreateMap<UserForRegistrationDto, User>();
+			CreateMap<UserRegistrationDto, User>();
 		}
 	}
 }

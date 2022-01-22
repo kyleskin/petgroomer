@@ -1,7 +1,6 @@
-﻿using System;
-namespace PetGroomer.Presentation
+﻿namespace PetGroomer.Presentation
 {
-	public static class AssemblyReference
+    public static class AssemblyReference
 	{
 	}
 }

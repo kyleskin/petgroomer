@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record UserForAuthenticationDto
+    public record UserAuthenticationDto
     {
         [Required(ErrorMessage = "User name is required.")]
         public string? UserName { get; init; }

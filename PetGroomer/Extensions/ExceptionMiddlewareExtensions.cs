@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using Contracts;
 using Entities.ErrorModel;
 using Entities.Exceptions;

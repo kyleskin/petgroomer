@@ -10,7 +10,7 @@ namespace Service.Contracts
     {
         Task<IEnumerable<GroomerDto>> GetGroomersAsync(Guid salonId, bool trackChanges);
         Task<GroomerDto> GetGroomerAsync(Guid salonId, Guid groomerId, bool trackChanges);
-        Task<GroomerDto> CreateGroomerInSalonAsync(Guid salonId, GroomerForCreationDto groomerForCreation, bool trackChages);
+        Task<GroomerDto> CreateGroomerInSalonAsync(Guid salonId, GroomerCreationDto groomerForCreation, bool trackChages);
         Task DeleteGroomerFromSalonAsync(Guid salonId, Guid groomerId, bool trackChages);
 
     }

@@ -1,7 +1,6 @@
-﻿using System;
-namespace Entities
+﻿namespace Entities
 {
-	public enum PetTypes
+    public enum PetTypes
 	{
 		Dog,
 		Cat
