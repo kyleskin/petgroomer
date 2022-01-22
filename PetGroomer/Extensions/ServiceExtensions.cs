@@ -1,5 +1,4 @@
-﻿using System;
-using Contracts;
+﻿using Contracts;
 using Entities.Models;
 using LoggerService;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +12,7 @@ using System.Text;
 
 namespace PetGroomer.Extensions
 {
-	public static class ServiceExtensions
+    public static class ServiceExtensions
 	{
 		public static void ConfigureCors(this IServiceCollection services) =>
 			services.AddCors(options =>

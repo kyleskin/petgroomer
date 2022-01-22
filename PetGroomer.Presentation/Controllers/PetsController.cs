@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 
 namespace PetGroomer.Presentation.Controllers
 {
-	[Route("api/salons/{salonId}/owners/{ownerId}/pets")]
+    [Route("api/salons/{salonId}/owners/{ownerId}/pets")]
 	[ApiController]
 	public class PetsController : ControllerBase
 	{

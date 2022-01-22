@@ -1,5 +1,4 @@
-﻿using System;
-using Contracts;
+﻿using Contracts;
 using Service.Contracts;
 using Entities.Models;
 using Shared.DataTransferObjects;
@@ -9,7 +8,7 @@ using Shared.RequestFeatures;
 
 namespace Service
 {
-	internal sealed class OwnerService : IOwnerService
+    internal sealed class OwnerService : IOwnerService
 	{
 		private readonly IRepositoryManager _repository;
 		private readonly ILoggerManager _logger;

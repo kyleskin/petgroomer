@@ -1,12 +1,10 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Entities.Models;
 using Shared.DataTransferObjects;
-using AutoMapper.Extensions.EnumMapping;
 
 namespace PetGroomer
 {
-	public class MappingProfile : Profile
+    public class MappingProfile : Profile
 	{
 		public MappingProfile()
 		{

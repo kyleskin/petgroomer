@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Contracts;
 using Entities.Exceptions;
 using Entities.Models;
@@ -8,7 +7,7 @@ using Shared.DataTransferObjects;
 
 namespace Service
 {
-	public class PetService : IPetService
+    public class PetService : IPetService
 	{
 		private readonly IRepositoryManager _repository;
 		private readonly ILoggerManager _logger;

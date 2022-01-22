@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -7,7 +6,7 @@ using Shared.RequestFeatures;
 
 namespace PetGroomer.Presentation.Controllers
 {
-	[Route("api/salons/{salonId}/owners")]
+    [Route("api/salons/{salonId}/owners")]
 	[ApiController]
 	public class OwnersController : ControllerBase
 	{
